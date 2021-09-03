@@ -10,7 +10,6 @@ def alphabet_index(char, alphabet):
 
 def plaintext_prep(plaintext):
     plaintext = plaintext.lower()
-    plaintext = ''.join([x for x in plaintext if x.isalpha()])
     return plaintext
 
 def present_ciphertext(ciphertext, split=False):
