@@ -1,4 +1,4 @@
-import helper_function as hf
+from cipher_function import helper_function as hf
 
 def encrypt(a_key, b_key, plaintext, cipher_split=False):
     plain_alphabet = hf.alphabet_init()
