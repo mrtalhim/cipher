@@ -30,4 +30,4 @@ def decrypt(a_key, b_key, ciphertext):
         for x in ciphertext
     ])
     
-    return plaintext
+    return hf.present_ciphertext(plaintext)

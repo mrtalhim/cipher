@@ -1,1 +1,1 @@
-from affine_cipher import encrypt, decrypt
+from .affine_cipher import encrypt, decrypt
