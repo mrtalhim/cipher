@@ -12,4 +12,4 @@ def extended_vigenere_cipher(key, plaintext, cipher_split=False):
         cipher = cipher % 26
         ciphertext += plain_alphabet[cipher]
     
-    return hf.present_ciphertext(ciphertext, split=cipher_split)
+    return ciphertext
