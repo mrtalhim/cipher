@@ -2,7 +2,7 @@ from cipher_function import helper_function as hf
 
 def encrypt(key, plaintext, cipher_split=False):
     plain_alphabet = hf.alphabet_init()
-    plaintext = hf.plaintext_prep(plaintext)
+    plaintext = hf.plaintext_prep(plaintext, alpha_only=True)
     while len(key) <= len(plaintext):
         key += key
     ciphertext = ''
