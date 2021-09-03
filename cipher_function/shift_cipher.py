@@ -1,6 +1,6 @@
 import helper_function as hf
 
-def shift_cipher_encrypt(key, plaintext, cipher_split=False):
+def encrypt(key, plaintext, cipher_split=False):
     plain_alphabet = hf.alphabet_init()
     cipher_alphabet = [
         plain_alphabet[(plain_alphabet.index(x) + key) % 26]
@@ -16,7 +16,7 @@ def shift_cipher_encrypt(key, plaintext, cipher_split=False):
     
     return hf.present_ciphertext(ciphertext, split=cipher_split)
 
-def shift_cipher_decrypt(key, ciphertext):
+def decrypt(key, ciphertext):
     plain_alphabet = hf.alphabet_init()
     cipher_alphabet = [
         plain_alphabet[(plain_alphabet.index(x) - key) % 26]

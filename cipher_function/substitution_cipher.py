@@ -1,6 +1,6 @@
 import helper_function as hf
 
-def substitution_cipher_encrypt(key, plaintext, cipher_split=False):
+def encrypt(key, plaintext, cipher_split=False):
     plain_alphabet = hf.alphabet_init()
     plaintext = hf.plaintext_prep(plaintext)
     cipher_alphabet = {x for x in key}
@@ -18,7 +18,7 @@ def substitution_cipher_encrypt(key, plaintext, cipher_split=False):
     
     return hf.present_ciphertext(ciphertext, split=cipher_split)
 
-def substitution_cipher_decrypt(key, ciphertext):
+def decrypt(key, ciphertext):
     plain_alphabet = hf.alphabet_init()
     ciphertext = hf.plaintext_prep(ciphertext)
     cipher_alphabet = {x for x in key}

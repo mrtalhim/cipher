@@ -1,6 +1,6 @@
 import helper_function as hf
 
-def extended_vigenere_cipher(key, plaintext, cipher_split=False):
+def encrypt(key, plaintext, cipher_split=False):
     plain_alphabet = [chr(x) for x in range(128)]
 
     while len(key) <= len(plaintext):
