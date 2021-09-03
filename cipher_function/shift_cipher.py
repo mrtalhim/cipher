@@ -6,12 +6,14 @@ def shift_cipher_encrypt(key, plaintext, cipher_split=False):
         plain_alphabet[(plain_alphabet.index(x) + key) % 26]
         for x in plain_alphabet
     ]
+
     plaintext = hf.plaintext_prep(plaintext)
     ciphertext = ''.join([
         cipher_alphabet[plain_alphabet.index(x)]
         if x.isalpha() else x
         for x in plaintext
     ])
+    
     return hf.present_ciphertext(ciphertext, split=cipher_split)
 
 def shift_cipher_decrypt(key, ciphertext):
@@ -20,17 +22,12 @@ def shift_cipher_decrypt(key, ciphertext):
         plain_alphabet[(plain_alphabet.index(x) - key) % 26]
         for x in plain_alphabet
     ]
+
     ciphertext = hf.plaintext_prep(ciphertext)
     plaintext = ''.join([
         cipher_alphabet[plain_alphabet.index(x)]
         if x.isalpha() else x
         for x in ciphertext
     ])
-    return hf.present_ciphertext(plaintext)
 
-key = 3
-plaintext = 'hello world'
-ciphertext = shift_cipher_encrypt(key, plaintext)
-deciphered = shift_cipher_decrypt(key, ciphertext)
-print(ciphertext)
-print(deciphered)
+    return hf.present_ciphertext(plaintext)
