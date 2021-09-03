@@ -1,1 +1,1 @@
-from standart_vigenere_cipher import encrypt
+from .standart_vigenere_cipher import encrypt
