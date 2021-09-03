@@ -1,6 +1,6 @@
 import helper_function as hf
 
-def standart_vigenere_cipher(key, plaintext, cipher_split=False):
+def standart_vigenere_cipher_encrypt(key, plaintext, cipher_split=False):
     plain_alphabet = hf.alphabet_init()
     plaintext = hf.plaintext_prep(plaintext)
     while len(key) <= len(plaintext):

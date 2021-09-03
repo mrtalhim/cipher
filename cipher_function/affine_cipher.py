@@ -1,6 +1,6 @@
 import helper_function as hf
 
-def affine_cipher(a_key, b_key, plaintext, cipher_split=False):
+def affine_cipher_encrypt(a_key, b_key, plaintext, cipher_split=False):
     plain_alphabet = hf.alphabet_init()
     cipher_alphabet = [plain_alphabet[(a_key * plain_alphabet.index(x) + b_key) % 26] for x in plain_alphabet]
     plaintext = hf.plaintext_prep(plaintext)
