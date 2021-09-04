@@ -8,12 +8,11 @@ options_column = [  [sg.Text('Input Type'),
                      sg.Radio('Text File', group_id='FILETYPE'),
                      sg.Radio('Binary File', group_id='FILETYPE')
                     ],
+                    [sg.Text('Filepath'), sg.InputText(), sg.Button('Browse')],
                     [sg.Text('Cipher Type'),
                      sg.InputCombo(['Shift', 'Substitution', 'Affine', 'Hill', 'Playfair', 'Vigenere'], default_value='Shift')
                     ],
-                    [sg.Text('Key'),sg.InputText()],
-                    [sg.Text('Filepath'), sg.InputText()],
-                    [sg.Button('Browse')],
+                    [sg.Text('Key      '),sg.InputText()],
                     [sg.Text('Ciphertext Output')],
                     [sg.Radio('No Space', group_id='CIPHEROUTPUT', default=True),
                      sg.Radio('5-Character Group', group_id='CIPHEROUTPUT'),
@@ -36,8 +35,10 @@ ciphertext_column = [ [sg.Frame('Ciphertext',
                        ] ]
 
 layout = [  [sg.Column([[sg.Frame('Options', options_column)]]),
-             sg.Column(plaintext_column),
-             sg.Column(ciphertext_column)
+             sg.Column(plaintext_column,
+                       expand_y=True),
+             sg.Column(ciphertext_column,
+                       expand_y=True)
              ] ]
 
 # Create the Window
