@@ -1,5 +1,12 @@
 from cipher_function import helper_function as hf
 
+def standart_vigenere_cipher(key, input, mode='encrypt', cipher_split=False):
+    if mode=='encrypt':
+        return encrypt(key, input, cipher_split=cipher_split)
+    
+    elif mode=='decypt':
+        return None
+    
 def encrypt(key, plaintext, cipher_split=False):
     plain_alphabet = hf.alphabet_init()
     plaintext = hf.plaintext_prep(plaintext, alpha_only=True)

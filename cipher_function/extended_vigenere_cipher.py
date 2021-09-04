@@ -1,5 +1,12 @@
 from cipher_function import helper_function as hf
 
+def extended_vigenere_cipher(key, input, mode='encrypt', cipher_split=False):
+    if mode=='encrypt':
+        return encrypt(key, input, cipher_split=cipher_split)
+    
+    elif mode=='decypt':
+        return None
+
 def encrypt(key, plaintext, cipher_split=False):
     plain_alphabet = [chr(x) for x in range(128)]
 
