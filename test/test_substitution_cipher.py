@@ -1,5 +1,5 @@
 import unittest
-from cipher_function import substitution_cipher
+from substitution_cipher import substitution_cipher
 
 class TestAffineCipher(unittest.TestCase):
 

@@ -1,5 +1,5 @@
 import unittest
-from cipher_function import affine_cipher
+from affine_cipher import affine_cipher
 
 class TestAffineCipher(unittest.TestCase):
 

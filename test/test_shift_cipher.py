@@ -1,5 +1,5 @@
 import unittest
-from cipher_function import shift_cipher
+from shift_cipher import shift_cipher
 
 class TestShiftCipher(unittest.TestCase):
 
