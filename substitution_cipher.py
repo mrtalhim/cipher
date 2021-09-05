@@ -42,3 +42,6 @@ def decrypt(key, ciphertext):
     ])
     
     return hf.present_ciphertext(plaintext)
+
+if __name__ == "__main__":
+    substitution_cipher()

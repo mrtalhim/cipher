@@ -40,3 +40,6 @@ def decrypt(a_key, b_key, ciphertext):
     ])
     
     return hf.present_ciphertext(plaintext)
+
+if __name__ == "__main__":
+    affine_cipher()

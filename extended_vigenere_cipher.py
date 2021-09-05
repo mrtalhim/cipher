@@ -20,3 +20,6 @@ def encrypt(key, plaintext, cipher_split=False):
         ciphertext += plain_alphabet[cipher]
     
     return ciphertext
+
+if __name__ == "__main__":
+    extended_vigenere_cipher()

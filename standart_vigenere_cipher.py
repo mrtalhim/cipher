@@ -18,3 +18,6 @@ def encrypt(key, plaintext, cipher_split=False):
         cipher = cipher % 26
         ciphertext += plain_alphabet[cipher]
     return hf.present_ciphertext(ciphertext, split=cipher_split)
+
+if __name__ == "__main__":
+    standart_vigenere_cipher()
