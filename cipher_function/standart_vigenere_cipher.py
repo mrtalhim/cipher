@@ -1,4 +1,4 @@
-from cipher_function import helper_function as hf
+import helper_function as hf
 
 def standart_vigenere_cipher(key, input, mode='encrypt', cipher_split=False):
     if mode=='encrypt':
