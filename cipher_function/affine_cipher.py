@@ -1,6 +1,8 @@
 import helper_function as hf
 
-def affine_cipher(a_key, b_key, input, mode='encrypt', cipher_split=False):
+def affine_cipher(key, input, mode='encrypt', cipher_split=False):
+    a_key, b_key = key
+    
     if mode=='encrypt':
         return encrypt(a_key, b_key, input, cipher_split=cipher_split)
     
