@@ -1,5 +1,6 @@
 import string
 import numpy as np
+import PySimpleGUI as sg
 
 def alphabet_init():
     alphabet = list(string.ascii_lowercase)
@@ -22,3 +23,6 @@ def present_ciphertext(ciphertext, split=False):
         ciphertext = [ciphertext[i:i+n] for i in range(0, len(ciphertext), n)]
         ciphertext = ' '.join(list(ciphertext))
     return ciphertext
+
+def collapse(layout, key, visible):
+    return sg.pin(sg.Column(layout, key=key, visible=visible))
