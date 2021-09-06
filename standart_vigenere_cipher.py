@@ -12,6 +12,7 @@ def standart_vigenere_cipher(key, input, mode='encrypt', cipher_split=False):
     Returns:
         str: text output from cipher operation
     """
+    
     if mode=='encrypt':
         return encrypt(key, input, cipher_split=cipher_split)
     
