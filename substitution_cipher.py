@@ -1,6 +1,18 @@
 import helper_function as hf
 
 def substitution_cipher(key, input, mode='encrypt', cipher_split=False):
+    """Python implementation of Substitution Cipher
+
+    Args:
+        key (str): Key for cipher operation. Must be in alphabet (a-z). If key doesn't have include all alphabet, it will be added
+        input (str): Text to encrypt/decrypt
+        mode (str, optional): Selects mode to do between 'encrypt' or 'decrypt'. Defaults to 'encrypt'.
+        cipher_split (bool, optional): Selects cipher encryption output between no space if False and 5-character group if True. Defaults to False.
+
+    Returns:
+        str: text output from cipher operation
+    """
+    
     if mode=='encrypt':
         return encrypt(key, input, cipher_split=cipher_split)
     

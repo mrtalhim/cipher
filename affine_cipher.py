@@ -1,6 +1,17 @@
 import helper_function as hf
 
 def affine_cipher(key, input, mode='encrypt', cipher_split=False):
+    """Python implementation of Affine Cipher
+
+    Args:
+        key (set(int)): Set of keys for cipher operation (a_key, b_key)
+        input (str): Text to encrypt/decrypt
+        mode (str, optional): Selects mode to do between 'encrypt' or 'decrypt'. Defaults to 'encrypt'.
+        cipher_split (bool, optional): Selects cipher encryption output between no space if False and 5-character group if True. Defaults to False.
+
+    Returns:
+        str: text output from cipher operation
+    """
     a_key, b_key = key
     
     if mode=='encrypt':
