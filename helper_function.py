@@ -26,3 +26,12 @@ def present_ciphertext(ciphertext, split=False):
 
 def collapse(layout, key, visible):
     return sg.pin(sg.Column(layout, key=key, visible=visible))
+        
+def mod_inverse(a, m) : 
+    a, m = int(a), int(m)
+    a = a % m; 
+    for x in range(1, m) : 
+        if ((a * x) % m == 1) : 
+            return x 
+    return 1
+    
