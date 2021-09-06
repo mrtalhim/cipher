@@ -16,8 +16,8 @@ def standart_vigenere_cipher(key, input, mode='encrypt', cipher_split=False):
     if mode=='encrypt':
         return encrypt(key, input, cipher_split=cipher_split)
     
-    elif mode=='decypt':
-        return None
+    elif mode=='decrypt':
+        return decrypt(key, input)
     
 def encrypt(key, plaintext, cipher_split=False):
     plain_alphabet = hf.alphabet_init()
@@ -27,9 +27,22 @@ def encrypt(key, plaintext, cipher_split=False):
     ciphertext = ''
     for x in range(len(plaintext)):
         cipher = hf.alphabet_index(plaintext[x], plain_alphabet) + hf.alphabet_index(key[x], plain_alphabet)
-        cipher = cipher % 26
+        cipher = cipher % len(plain_alphabet)
         ciphertext += plain_alphabet[cipher]
     return hf.present_ciphertext(ciphertext, split=cipher_split)
+
+def decrypt(key, ciphertext):
+    plain_alphabet = hf.alphabet_init()
+    ciphertext = hf.plaintext_prep(ciphertext, alpha_only=True)
+    while len(key) <= len(ciphertext):
+        key += key
+    plaintext = ''
+    for x in range(len(ciphertext)):
+        plain = hf.alphabet_index(ciphertext[x], plain_alphabet) - hf.alphabet_index(key[x], plain_alphabet)
+        plain = plain % len(plain_alphabet)
+        plaintext += plain_alphabet[plain]
+        
+    return hf.present_ciphertext(plaintext)
 
 if __name__ == "__main__":
     standart_vigenere_cipher()
