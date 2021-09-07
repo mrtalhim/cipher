@@ -1,7 +1,7 @@
-from numpy.linalg.linalg import LinAlgError
 import PySimpleGUI as sg
 import numpy as np
 import helper_function as hf
+from numpy.linalg.linalg import LinAlgError
 from shift_cipher import shift_cipher
 from substitution_cipher import substitution_cipher
 from affine_cipher import affine_cipher
@@ -19,7 +19,7 @@ def key_hill_input(keysize):
                      for x in range(keysize)]
                     for y in range(keysize)]
     
-    layout = [[sg.Text('Input (a-z)')],
+    layout = [[sg.Text('Alphabet key (a-z)')],
               [matrix_input],
               [sg.Button('Save', key='SAVE'), sg.CloseButton('Close')],
               [sg.Text(key='MESSAGE')]
@@ -83,14 +83,21 @@ def gui_shift_cipher():
                              sg.Radio('5-Character Group', group_id='CIPHEROUTPUT', key='CIPHERINGROUP'),
                              ]]
     
-    key_single_input = [[sg.Text('Key'), sg.InputText(key='CIPHERKEY')]]
+    key_single_input = [[sg.Text('Key'),
+                         sg.InputText(key='CIPHERKEY'),
+                         ],
+                         [sg.Text('Number key (0-9)', key='SINGLEINPUTMESSAGE', justification='center', expand_x=True)]
+                        ]
     key_affine_input = [[sg.Text('Key'),
                          sg.InputText(key='CIPHERKEY_A'),
-                         sg.InputText(key='CIPHERKEY_B'),
-                         ]]
+                         sg.InputText(key='CIPHERKEY_B')
+                         ],
+                         [sg.Text('Number key (0-9)', key='AFFINEINPUTMESSAGE', justification='center', expand_x=True)]
+                        ]
     key_hill_size_input = [[sg.Text('Key Size'),
                             sg.InputText(key='KEYSIZE'),
-                            sg.Button('Input Key', key='GETHILLKEY')]]
+                            sg.Button('Input Key', key='GETHILLKEY')
+                            ]]
     
     text_input_selection = [[sg.InputCombo(list(text_cipher_dict.keys()), 
                                        enable_events=True,
@@ -203,6 +210,11 @@ def gui_shift_cipher():
                     window[x].update(visible=True)
                 else:
                     window[x].update(visible=False)
+            
+            if values[object_key] in num_key_list:
+                window['SINGLEINPUTMESSAGE'].update('Number key (0-9)')
+            else:
+                window['SINGLEINPUTMESSAGE'].update('Alphabet key (a-z)')
                     
         if event == 'GETHILLKEY':
             key = key_hill_input(values['KEYSIZE'])
