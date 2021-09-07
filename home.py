@@ -1,18 +1,28 @@
-from extended_vigenere_cipher import extended_vigenere_cipher
+from numpy.linalg.linalg import LinAlgError
 import PySimpleGUI as sg
 import numpy as np
 import helper_function as hf
 from shift_cipher import shift_cipher
 from substitution_cipher import substitution_cipher
 from affine_cipher import affine_cipher
+from hill_cipher import hill_cipher
+from playfair_cipher import playfair_cipher
 from standart_vigenere_cipher import standart_vigenere_cipher
 from extended_vigenere_cipher import extended_vigenere_cipher
 
 def key_hill_input(keysize):
-    matrix_input = [[sg.Text('({}, {})'.format(x, y), key='KEYINPUT({},{})'.format(x, y)) for x in range(keysize)] for y in range(keysize)]
+    keysize = int(keysize)
+    matrix_num = []
+    matrix_char = []
+    matrix_input = [[sg.InputText(size=(3, 1),
+                                  key='KEYINPUT({},{})'.format(x, y))
+                     for x in range(keysize)]
+                    for y in range(keysize)]
     
-    layout = [[matrix_input],
-              [sg.Button('Save', key='SAVE'), sg.CloseButton('Close')]
+    layout = [[sg.Text('Input (a-z)')],
+              [matrix_input],
+              [sg.Button('Save', key='SAVE'), sg.CloseButton('Close')],
+              [sg.Text(key='MESSAGE')]
               ]
     
     window = sg.Window('Key Input',
@@ -21,25 +31,35 @@ def key_hill_input(keysize):
     
     while True:
         event, values = window.read()
-        if event == 'Close':
-            return None
+        print(event, values)
         
-        if event == 'Save':
-            matrix = []
+        if event == 'Close' or event == sg.WIN_CLOSED:
+            break
+        
+        if event == 'SAVE':
+            alphabet = hf.alphabet_init()
             for i in range(keysize):
-                row = []
+                row_num = []
+                row_char = []
                 for j in range(keysize):
                     input = values['KEYINPUT({},{})'.format(i, j)]
-                    row.append(int(input))
-                matrix.append(row)
+                    row_char.append(input.upper())
+                    input = hf.alphabet_index(input.lower(), alphabet)
+                    row_num.append(input)
+                matrix_char.append(row_char)
+                matrix_num.append(row_num)
             
-            matrix = np.array(matrix)
+            matrix_num = np.array(matrix_num)
+            try:
+                np.linalg.inv(matrix_num)
+                window.close()
+                return matrix_char
+            except LinAlgError:
+                window['MESSAGE'].update('Key is not inversible')
+                matrix_num = []
+                matrix_char = []
+                continue
             
-            return matrix
-                
-    return None
-            
-
 def gui_shift_cipher():
     sg.theme('DarkAmber')   # Add a touch of color
     # All the stuff inside your window.
@@ -48,8 +68,8 @@ def gui_shift_cipher():
                         'Substitution': substitution_cipher,
                         'Affine': affine_cipher,
                         'Vigenere':standart_vigenere_cipher,
-                        'Hill': None,
-                        'Playfair':None
+                        'Hill': hill_cipher,
+                        'Playfair': playfair_cipher
                         }
     
     binaryfile_cipher_dict = {'Vigenere': extended_vigenere_cipher}
@@ -70,7 +90,7 @@ def gui_shift_cipher():
                          ]]
     key_hill_size_input = [[sg.Text('Key Size'),
                             sg.InputText(key='KEYSIZE'),
-                            sg.Button('Input Key', key='GETAFFINEKEY')]]
+                            sg.Button('Input Key', key='GETHILLKEY')]]
     
     text_input_selection = [[sg.InputCombo(list(text_cipher_dict.keys()), 
                                        enable_events=True,
@@ -184,6 +204,10 @@ def gui_shift_cipher():
                 else:
                     window[x].update(visible=False)
                     
+        if event == 'GETHILLKEY':
+            key = key_hill_input(values['KEYSIZE'])
+            window['MESSAGE'].update(key)
+                    
         # change cipher selection based on input type
         if event == 'TEXTINPUT' or event == 'BINARYFILEINPUT':
             window['CIPHERTEXTROW'].update(visible=values['TEXTINPUT'])
@@ -201,6 +225,8 @@ def gui_shift_cipher():
                     a_key = int(values['CIPHERKEY_A'])
                     b_key = int(values['CIPHERKEY_B'])
                     key = (a_key, b_key)
+                elif values['CIPHERTEXTTYPE'] == 'Hill':
+                    key=key
                 else:
                     key = int(values['CIPHERKEY']) if values['CIPHERTEXTTYPE'] in num_key_list else values['CIPHERKEY']
             elif values['BINARYFILEINPUT']:
@@ -209,7 +235,10 @@ def gui_shift_cipher():
             if values['INPUTFILE']:
                 open_file_mode = 'r' if values['TEXTINPUT'] else 'rb'
                 with open(values['INPUTFILEPATH'], open_file_mode) as f:
-                    input = f.read()
+                    if values['BINARYFILEINPUT']:
+                        input = bytearray(f.read())
+                    else:
+                        input = f.read()
                 window['PLAINTEXT' if values['ENCRYPT'] else 'CIPHERTEXT'].update(input)
             else:
                 input = values['PLAINTEXT' if values['ENCRYPT'] else 'CIPHERTEXT']
