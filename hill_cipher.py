@@ -1,6 +1,4 @@
 import numpy as np
-from numpy.core.defchararray import isalpha
-from numpy.core.numeric import True_
 import helper_function as hf
 
 def hill_cipher(key, input, mode='encrypt', cipher_split=False):
