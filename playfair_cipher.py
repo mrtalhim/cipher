@@ -1,4 +1,3 @@
-import numpy as np
 import helper_function as hf
 
 def playfair_cipher(key, input, mode='encrypt', cipher_split=False):
@@ -13,6 +12,7 @@ def playfair_cipher(key, input, mode='encrypt', cipher_split=False):
         str: text output from cipher operation
     """
     
+    key = hf.plaintext_prep(key, alpha_only=True)
     input = list(hf.plaintext_prep(input, alpha_only=True))
     
     # split any character duplicates
@@ -107,10 +107,5 @@ def decrypt(key, ciphertext):
     
     return hf.present_ciphertext(plaintext)
     
-# if __name__ == "__main__":
-#     playfair_cipher()
-    
-ciphertext = playfair_cipher('cipher', 'hello world', mode='encrypt')
-print(ciphertext)
-plaintext = playfair_cipher('cipher', ciphertext, mode='decrypt')
-print(plaintext)
+if __name__ == "__main__":
+    playfair_cipher()
