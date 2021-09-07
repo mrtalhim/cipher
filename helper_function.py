@@ -9,6 +9,12 @@ def alphabet_init():
 def alphabet_index(char, alphabet):
     return alphabet.index(char)
 
+def matrix_alphabet_index(char, matrix_alphabet):
+    for x in matrix_alphabet:
+        for y in x:
+            if char in y:
+                return matrix_alphabet.index(x), x.index(y)
+
 def plaintext_prep(plaintext, alpha_only=False):
     plaintext = plaintext.lower()
     if alpha_only:
