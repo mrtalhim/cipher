@@ -60,7 +60,7 @@ def key_hill_input(keysize):
                 matrix_char = []
                 continue
             
-def gui_shift_cipher():
+def home():
     sg.theme('DarkAmber')   # Add a touch of color
     # All the stuff inside your window.
     
@@ -271,4 +271,4 @@ def gui_shift_cipher():
                 
                 
 if __name__ == "__main__":
-    gui_shift_cipher()
+    home()
