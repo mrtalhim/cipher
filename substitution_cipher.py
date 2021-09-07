@@ -13,6 +13,8 @@ def substitution_cipher(key, input, mode='encrypt', cipher_split=False):
         str: text output from cipher operation
     """
     
+    key = hf.plaintext_prep(key, alpha_only=True)
+    
     if mode=='encrypt':
         return encrypt(key, input, cipher_split=cipher_split)
     
