@@ -32,7 +32,7 @@ class TestHillCipher(unittest.TestCase):
                ['b', 'k', 'p']]
         self.assertEqual(hill_cipher(key, 'POH', mode='decrypt'), 'ACT')
 
-    def test_decrypt_help_nosplit(self):
+    def test_decrypt_cat_nosplit(self):
         key = [['g', 'n', 'u'],
                ['y', 'q', 'r'],
                ['b', 'k', 'p']]

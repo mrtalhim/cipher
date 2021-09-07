@@ -27,7 +27,7 @@ def hill_cipher(key, input, mode='encrypt', cipher_split=False):
             row.append(char)
         key_np.append(row)
         
-    key_np = np.array(key_np)
+    key_np = np.array(key_np).T
     
     if mode=='encrypt':
         return encrypt(key_np, input, cipher_split=cipher_split)
@@ -54,7 +54,7 @@ def encrypt(key, plaintext, cipher_split=False):
     
     for i in range(len(plaintext_split)):
         vector = np.array(plaintext_split[i])
-        cipher = np.dot(key.T, vector) % len(plain_alphabet)
+        cipher = np.dot(key, vector) % len(plain_alphabet)
         cipher = cipher.tolist()
         for j in cipher:
             ciphertext.append(plain_alphabet[j])
@@ -75,7 +75,7 @@ def decrypt(key, ciphertext):
           np.linalg.det(key) * \
           hf.mod_inverse(np.linalg.det(key), len(plain_alphabet)) % \
           len(plain_alphabet)
-    key = key.astype(int)
+    key = np.around(key).astype(int)
     
     for i in range(0, len(ciphertext), size):
         vector = ciphertext[i:i+size]
@@ -85,7 +85,7 @@ def decrypt(key, ciphertext):
     
     for i in range(len(ciphertext_split)):
         vector = np.array(ciphertext_split[i])
-        plain = np.dot(key.T, vector) % len(plain_alphabet)
+        plain = np.dot(key, vector) % len(plain_alphabet)
         plain = plain.tolist()
         for j in plain:
             plaintext.append(plain_alphabet[j])
