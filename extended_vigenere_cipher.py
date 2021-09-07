@@ -1,4 +1,5 @@
 import helper_function as hf
+import struct
 
 def extended_vigenere_cipher(key, input, mode='encrypt', cipher_split=False):
     """Python implementation of Vigenere Cipher for binary file input with ASCII key
@@ -19,7 +20,7 @@ def extended_vigenere_cipher(key, input, mode='encrypt', cipher_split=False):
         return None
 
 def encrypt(key, plaintext, cipher_split=False):
-    plain_alphabet = [chr(x) for x in range(128)]
+    plain_alphabet = [chr(x) for x in range(256)]
 
     while len(key) <= len(plaintext):
         key += key
@@ -27,10 +28,25 @@ def encrypt(key, plaintext, cipher_split=False):
 
     for x in range(len(plaintext)):
         cipher = hf.alphabet_index(plaintext[x], plain_alphabet) + hf.alphabet_index(key[x], plain_alphabet)
-        cipher = cipher % 26
+        cipher = cipher % len(plain_alphabet)
         ciphertext += plain_alphabet[cipher]
     
     return ciphertext
+
+def decrypt(key, ciphertext):
+    plain_alphabet = [chr(x) for x in range(256)]
+    ciphertext = hf.plaintext_prep(ciphertext)
+    
+    while len(key) <= len(ciphertext):
+        key += key
+    plaintext = ''
+    
+    for x in range(len(ciphertext)):
+        plain = hf.alphabet_index(ciphertext[x], plain_alphabet) - hf.alphabet_index(key[x], plain_alphabet)
+        plain = plain % len(plain_alphabet)
+        plaintext += plain_alphabet[plain]
+        
+    return hf.present_ciphertext(plaintext)
 
 if __name__ == "__main__":
     extended_vigenere_cipher()
