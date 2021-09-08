@@ -14,6 +14,7 @@ def playfair_cipher(key, input, mode='encrypt', cipher_split=False):
     
     key = hf.plaintext_prep(key, alpha_only=True)
     input = list(hf.plaintext_prep(input, alpha_only=True))
+    input = ['i' if x == 'j' else x for x in input]
     
     # split any character duplicates
     for x in range(len(input) - 1):
