@@ -1,5 +1,5 @@
 import unittest
-from cipher_function import standart_vigenere_cipher
+from standart_vigenere_cipher import standart_vigenere_cipher
 
 class TestStandartVigenereCipher(unittest.TestCase):
 
