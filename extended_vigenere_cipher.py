@@ -10,7 +10,7 @@ def extended_vigenere_cipher(key, input, mode='encrypt', cipher_split=False):
         cipher_split (bool, optional): Selects cipher encryption output between no space if False and 5-character group if True. Defaults to False.
 
     Returns:
-        str: text output from cipher operation
+        str: text output from cipher operation encoded in binary
     """
     input = input.decode()
     
