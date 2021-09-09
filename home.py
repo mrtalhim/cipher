@@ -76,8 +76,10 @@ def home():
     
     num_key_list = ['Shift', 'Affine', 'Hill']
     
-    file_input_layout = [[sg.Text('Input File'), sg.InputText(key='INPUTFILEPATH'), sg.FileBrowse()]]
-    file_output_layout = [[sg.Text('Output File'), sg.InputText(key='OUTPUTFILEPATH'), sg.FileSaveAs()]]
+    file_input_layout = [[sg.Text('Input File'), sg.InputText(key='INPUTFILEPATH'), sg.FileBrowse(file_types=(('TXT file', '*.txt'),
+                                                                                                                                     ('BIN file', '*.bin')))]]
+    file_output_layout = [[sg.Text('Output File'), sg.InputText(key='OUTPUTFILEPATH'), sg.FileSaveAs(file_types=(('TXT file', '*.txt'),
+                                                                                                                                     ('BIN file', '*.bin')))]]
     cipher_output_layout = [[sg.Text('Ciphertext Output'),
                              sg.Radio('No Space', group_id='CIPHEROUTPUT', default=True, key='CIPHERNOSPACE'),
                              sg.Radio('5-Character Group', group_id='CIPHEROUTPUT', key='CIPHERINGROUP'),
@@ -216,6 +218,7 @@ def home():
             else:
                 window['SINGLEINPUTMESSAGE'].update('Alphabet key (a-z)')
                     
+        # open hill key input
         if event == 'GETHILLKEY':
             key = key_hill_input(values['KEYSIZE'])
             window['MESSAGE'].update(key)
@@ -247,10 +250,7 @@ def home():
             if values['INPUTFILE']:
                 open_file_mode = 'r' if values['TEXTINPUT'] else 'rb'
                 with open(values['INPUTFILEPATH'], open_file_mode) as f:
-                    if values['BINARYFILEINPUT']:
-                        input = bytearray(f.read())
-                    else:
-                        input = f.read()
+                    input = f.read()
                 window['PLAINTEXT' if values['ENCRYPT'] else 'CIPHERTEXT'].update(input)
             else:
                 input = values['PLAINTEXT' if values['ENCRYPT'] else 'CIPHERTEXT']
@@ -263,8 +263,9 @@ def home():
             window['CIPHERTEXT' if values['ENCRYPT'] else 'PLAINTEXT'].update(output)
                 
             if values['OUTPUTFILEOPTION']:
-                with open(values['OUTPUTFILEPATH'], 'w') as f:
-                    f.write(output)
+                open_file_mode = 'w' if values['TEXTINPUT'] else 'wb'
+                with open(values['OUTPUTFILEPATH'], open_file_mode) as f:
+                    f.write(output.encode() if values['BINARYFILEINPUT'] else output)
                     window['MESSAGE'].update('File saved ({})'.format(values['OUTPUTFILEPATH']))
             else:
                 window['MESSAGE'].update('Operation {} {} complete'.format(values[cipher_type], mode))
